@@ -1,15 +1,19 @@
 from flask import Flask, request, jsonify
 import psycopg2
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
 
 app = Flask(__name__)
 count=1
 conn = psycopg2.connect(
-    dbname="dashboardDB",
-    user="postgres",
-    password="kunal9922",
-    host="localhost",
-    port="5432"
+    dbname=os.getenv('POSTGRES_DATABASE'),
+    user=os.getenv('POSTGRES_USER'),
+    password=os.getenv('POSTGRES_PASSWORD'),
+    host=os.getenv('POSTGRES_HOST'),
+    port=os.getenv('POSTGRES_PORT')
 )
 @app.route('/', methods=['POST'])
 def webStart():
